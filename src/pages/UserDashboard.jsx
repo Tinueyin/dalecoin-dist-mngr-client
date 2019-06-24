@@ -1,12 +1,16 @@
 import React from 'react';
-import {Card, Button, Table} from 'semantic-ui-react'
+import {Card, Form} from 'semantic-ui-react'
 
 export default class UserDashboard extends React.Component {
     state = {
       loading: false,
       token: ''
     };
-
+    // componentDidMount() {
+    //   const { token } = this.props.match.params;
+    //   this.setState({ loading: true, token });
+    //   timeout(2).then(() => this.setState({ loading: false }));
+    // }
     render() {
       return (
         <Card raised style={styles.card}> 
@@ -15,21 +19,14 @@ export default class UserDashboard extends React.Component {
         <a href="/#">Google sheet</a>
         <button>Logout</button>
         <Card.Content>
-            
-              <Button>Fetch</Button>
-              <Table celled>
-                  <Table.Header>
-                      <Table.Row>
-                          <Table.HeaderCell>Header</Table.HeaderCell>
-                      </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
-                      <Table.Row>
-                          <Table.Cell>Cell</Table.Cell>
-                      </Table.Row>
-                  </Table.Body>
-              </Table>
-              <Button>Distribute</Button>
+        <Form>
+              <Form.Group>
+              <Form.Input placeholder="address"/>
+              <Form.Input placeholder="Current balance" />
+              <Form.Input placeholder="Expected balance" />
+              </Form.Group>
+              <Form.Button>Submit</Form.Button>
+          </Form>
         </Card.Content>
           
         </Card>

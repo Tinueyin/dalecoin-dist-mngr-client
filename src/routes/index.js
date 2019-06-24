@@ -1,20 +1,27 @@
-import DashBoard from '../pages/DashBoard';
-import Login from '../pages/Login';
+import Landing from '../pages/Landing';
+import Verify from '../pages/Verify';
+import UserDashBoard from '../pages/UserDashboard';
 import AdminDashBoard from '../pages/AdminDashBoard';
 import NotFound from '../pages/NotFound';
 
 export default [
   {
     name: 'dashboard',
-    component: DashBoard,
+    component: Landing,
     exact: true,
     path: '/'
   },
   {
-    name: 'login',
-    component: Login,
+    name: 'verify',
+    component: Verify,
     exact: true,
-    path: '/login'
+    path: '/verify/:token'
+  },
+  {
+    name: 'userdashboard',
+    component: UserDashBoard,
+    exact: true,
+    path: '/user'
   },
   {
     name: 'admindashboard',
