@@ -6,19 +6,25 @@ import {verifyToken} from '../utils/api'
 export default class Verify extends React.Component {
   state = {
     loading: false,
-    token: ''
+    token: '',
+    errorMessage: ''
   };
   componentDidMount() {
     const { token } = this.props.match.params;
     this.setState({ loading: true, token });
     verifyToken(token).then(res => {
       console.log(res)
-      this.setState({ loading: false, token })
-    })
-    // timeout(2).then(() => this.setState({ loading: false }));
+      if(res.success){
+        const {token} = res.data
+        localStorage.setItem("token", token)
+        this.setState({ loading: false, token })
+      }else{
+        this.setState({loading: false, token: '', errorMessage: res.message})
+      }
+    }).catch(err => console.log(err))
   }
   render() {
-    const { loading, token } = this.state;
+    const { loading, token, errorMessage } = this.state;
     if (loading) {
       return (
         <Dimmer inverted style={styles.dimmer} active>
@@ -34,7 +40,7 @@ export default class Verify extends React.Component {
     return (
       <Card raised style={styles.card}>
         <div>
-          Error: <span>Cannot verify User</span>
+          Error: <span>{errorMessage}</span>
         </div>
         <Link to="/">
           <button style={styles.button}>Back to home</button>
@@ -61,8 +67,3 @@ const styles = {
     backgroundColor: '#A6A6A8'
   }
 };
-
-const timeout = seconds =>
-  new Promise((res, rej) => {
-    setTimeout(() => res(), 1000 * seconds);
-  });

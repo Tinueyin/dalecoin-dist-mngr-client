@@ -6,18 +6,23 @@ import { toast } from 'react-toastify';
 export default class LandingPage extends React.Component {
   state = {
     error: '',
-    email: ''
+    email: '',
+    loading: false
   };
   handleSubmit = async event => {
     event.preventDefault();
-    console.log("jjjjjj")
+    this.setState({loading: true})
     try {
-      const {email} = this.state
+      const { email } = this.state;
       const response = await submitEmail(email);
-      console.log(response);
+      if (response.success) {
+        toast(response.message);
+      }
     } catch (error) {
+      console.log(error);
       toast('An error occurred');
     }
+    this.setState({loading: false})
   };
   handleChange = async event => {
     event.preventDefault();
@@ -25,13 +30,16 @@ export default class LandingPage extends React.Component {
     this.setState({ [name]: value });
   };
   render() {
-    const { email, error } = this.state;
+    const { email, error, loading } = this.state;
+    const btnText = loading ? 'Processing' : 'Submit';
     return (
       <Card raised style={styles.card}>
         <div style={styles.error}>{error}</div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
-            <label style={styles.label} htmlFor="email">Email</label>
+            <label style={styles.label} htmlFor="email">
+              Email
+            </label>
             <input
               value={email}
               name="email"
@@ -39,7 +47,9 @@ export default class LandingPage extends React.Component {
               placeholder="Enter your email"
             />
           </Form.Field>
-          <Form.Button style={styles.button} type="submit">Submit</Form.Button>
+          <Form.Button style={styles.button} disabled={loading} type="submit">
+            {btnText}
+          </Form.Button>
         </Form>
       </Card>
     );
@@ -49,10 +59,10 @@ export default class LandingPage extends React.Component {
 const styles = {
   card: {
     padding: '2rem',
-  margin: '15% auto',
-  minWidth: '310px',
-  width: '30%',
-  heigth: "5rem"
+    margin: '15% auto',
+    minWidth: '310px',
+    width: '30%',
+    heigth: '5rem'
   },
   error: {
     color: '#947667'

@@ -1,5 +1,3 @@
 import React from 'react';
-import LogoutButton from './GoogleLogOut'
 
-
-export default () => <div>{localStorage.getItem("userToken") ? <LogoutButton />  : <React.Fragment />}</div>;
+export default () => <div>{localStorage.getItem("userToken") ? <div>Log out</div> : <React.Fragment />}</div>;

@@ -12,13 +12,11 @@ if (
 
 export const submitEmail = async (email) => {
   const response = await axios.post(`${baseUrl}/magic-link`, { email, url:window.location.href });
-  console.log(response)
-  return response.json();
+  return response.data;
 };
 
 export const verifyToken = async (token) => {
   const response = await axios.post(`${baseUrl}/auth`, { token });
-  console.log(response)
-  return response;
+  return response.data;
 };
 
