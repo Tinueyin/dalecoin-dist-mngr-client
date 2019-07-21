@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div>Header</div>;
+export default () => <div>{localStorage.getItem("userToken") ? <div>Log out</div> : <React.Fragment />}</div>;

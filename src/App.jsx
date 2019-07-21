@@ -1,27 +1,20 @@
 import React from 'react';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { ToastContainer } from 'react-toastify';
 import routes from './routes';
 import Header from './components/Header';
 import 'react-toastify/dist/ReactToastify.css';
+import 'semantic-ui-css/semantic.min.css'
 import './assets/styles/_styles.scss';
 
 const App = () => (
   <Router>
-    <Route
-      render={({ location }) => (
-        <TransitionGroup>
-          <CSSTransition
-            key={location.key}
-            classNames="fade"
-            timeout={{ enter: 400, exit: 300 }}
-          >
-            <div className="main">
+    <div className="main">
               <Header />
               <ToastContainer autoClose={2000} />
-              <Switch location={location}>
-                {routes.map((route, index) => (
+              <Switch >
+                {routes.map((route) => (
                   <Route
                     key={route.name}
                     path={route.path}
@@ -31,10 +24,6 @@ const App = () => (
                 ))}
               </Switch>
             </div>
-          </CSSTransition>
-        </TransitionGroup>
-      )}
-    />
   </Router>
 );
 
